@@ -16,6 +16,7 @@ Taking inspirations along the way from https://threejs.org/ and https://bruno-si
 Chapters:-
 - The cube- three js 
 - Line in three js
+- Debug in three js
 
 ## Acknowledgements
 
