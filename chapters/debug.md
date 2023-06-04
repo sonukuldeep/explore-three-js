@@ -63,7 +63,7 @@ cube2.add(greenCube.position, 'x').min(1).max(10).step(1)
 cube2.add(greenCube.position, 'z').min(1).max(10).step(1)
 ```
 
-## callback functions
+## Callback functions
 You can also add some callback functions. onChange is triggered once the value is changed.
 ```js
 gui.add(cube.position, 'y').onChange(function () {
