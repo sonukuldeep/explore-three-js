@@ -16,6 +16,11 @@ The PointerLockControls implements the inbuilt browsers Pointer Lock API.
 ## Orbit Controls
 Orbit controls allow the camera to orbit around the center of the scene. You can also provide a target to move around. You can add Orbitcontrols in a few simple steps.
 
+## Import Orbit controls
+```js
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+```
+
 Create a new instance of the orbit controls and pass the camera.
 ```js
 const controls = new THREE.OrbitControls(camera, render.domElement)
