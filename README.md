@@ -19,7 +19,8 @@ Chapters:-
 - Debug in three js
 - Stats in three js
 - Camera in three js
-- Camera
+- Camera controls
+  - Orbit controls
 
 ## Acknowledgements
 
