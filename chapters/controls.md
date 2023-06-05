@@ -7,10 +7,10 @@ Orbit controls allow the camera to orbit around the center of the scene.
 2. [Trackball Controls](#trackball-controls)
 TrackballControls is similar to Orbit controls. However, it does not maintain a constant camera up vector.
 
-3. Fly Controls
+3. [Fly Controls](#fly-controls)
 These are flight simulator-like controls. Move and steer with the keyboard and the mouse.
 
-4. PointerLock Controls
+4. [PointerLock Controls](#pointerlock-controls)
 The PointerLockControls implements the inbuilt browsers Pointer Lock API.
 
 ## Orbit Controls
@@ -43,4 +43,16 @@ import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
 ```
 ```js
 const controls = new THREE.TrackballControls(camera, render.domElement)
+```
+
+## Fly Controls
+These are flight simulator-like controls. Move and steer with the keyboard and the mouse. You can arbitrarily transform the camera in 3D space without any limitations (e.g., focus on a specific target).
+```js
+const controls = new THREE.FlyControls(camera, render.domElement)
+```
+
+## PointerLock Controls
+The PointerLockControls implements the inbuilt browsers Pointer Lock API. It allows you to control the camera just like in a first-person in 3D games.
+```js
+const controls = new PointerLockControls(camera, document.body)
 ```
