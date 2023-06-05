@@ -17,6 +17,9 @@ Chapters:-
 - The cube- three js 
 - Line in three js
 - Debug in three js
+- Stats in three js
+- Camera in three js
+- Camera
 
 ## Acknowledgements
 
