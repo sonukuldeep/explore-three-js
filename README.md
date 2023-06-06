@@ -13,6 +13,10 @@ This repo will evolve from three js to react three fiber as I continue to learn.
 
 Taking inspirations along the way from https://threejs.org/ and https://bruno-simon.com/
 
+## Documentation source
+- https://threejs.org/
+- https://threejs.org/, https://www.tutorialspoint.com/threejs/index.htm
+
 Chapters:-
 - The cube- three js 
 - Line in three js
@@ -21,10 +25,20 @@ Chapters:-
 - Camera in three js
 - Camera controls
   - Orbit controls
+  - Trackball Controls
+  - Fly Controls
+  - PointerLock Controls
+- Light and Shadows
+  - Ambient Light
+  - Directional Light
+  - Spotlight
+  - Point Light
+  - Hemisphere Light
 
 ## Acknowledgements
 
  - Three js docs
+ - 
  - React three fiber docs
  - Opensource community
  - My brain
