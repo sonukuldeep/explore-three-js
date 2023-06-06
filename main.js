@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { GUI } from 'dat.gui'
 
-// Torus knot geometry in Three.js
+// Creating a tetrahedron using Polyhedron geometry in Three.js
 // GUI
 const gui = new GUI()
 // sizes
@@ -10,54 +10,59 @@ let height = window.innerHeight
 // scene
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0x262626)
+const axesHepler = new THREE.AxesHelper(10)
+scene.add(axesHepler)
 // camera
 const camera = new THREE.PerspectiveCamera(30, width / height, 0.1, 100)
 camera.position.set(0, 0, 10)
 const camFolder = gui.addFolder('Camera')
 camFolder.add(camera.position, 'z').min(10).max(60).step(10)
 camFolder.open()
-// torusKnot
-const geometry = new THREE.TorusKnotGeometry()
-const material = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
-    wireframe: true
+// prettier-ignore
+const vertices = [
+    1, 1, 1,
+    -1, -1, 1,
+    -1, 1, -1,
+    1, -1, -1
+]
+// prettier-ignore
+const indices = [
+    2, 1, 0,
+    0, 3, 2,
+    1, 3, 0,
+    2, 3, 1
+]
+const geometry = new THREE.PolyhedronGeometry(vertices, indices)
+const material = new THREE.MeshNormalMaterial({
+    color: 0xffffff
 })
 const materialFolder = gui.addFolder('Material')
 materialFolder.add(material, 'wireframe')
 materialFolder.open()
-const torusKnot = new THREE.Mesh(geometry, material)
-scene.add(torusKnot)
-const torusKnotProps = {
+const plane = new THREE.Mesh(geometry, material)
+scene.add(plane)
+// experimenting plane properties
+const planeProps = {
     radius: 1,
-    tubeRadius: 0.5,
-    radialSegments: 64,
-    tubularSegments: 8,
-    p: 2,
-    q: 3
+    detail: 1
 }
 const props = gui.addFolder('Properties')
 props
-    .add(torusKnotProps, 'radius', 1, 50)
+    .add(planeProps, 'radius', 1, 30)
     .step(1)
     .onChange(redraw)
-    .onFinishChange(() => console.dir(torusKnot.geometry))
-props.add(torusKnotProps, 'tubeRadius', 0.1, 50).step(0.1).onChange(redraw)
-props.add(torusKnotProps, 'radialSegments', 1, 50).step(1).onChange(redraw)
-props.add(torusKnotProps, 'tubularSegments', 1, 50).step(1).onChange(redraw)
-props.add(torusKnotProps, 'p', 1, 20).step(1).onChange(redraw)
-props.add(torusKnotProps, 'q', 1, 20).step(1).onChange(redraw)
+    .onFinishChange(() => console.dir(plane.geometry))
+props.add(planeProps, 'detail', 1, 30).step(1).onChange(redraw)
 props.open()
 function redraw() {
-    let newGeometry = new THREE.TorusKnotGeometry(
-        torusKnotProps.radius,
-        torusKnotProps.tubeRadius,
-        torusKnotProps.radialSegments,
-        torusKnotProps.tubularSegments,
-        torusKnotProps.p,
-        torusKnotProps.q
+    let newGeometry = new THREE.PolyhedronGeometry(
+        verticesOfCube,
+        indicesOfFaces,
+        planeProps.radius,
+        planeProps.detail
     )
-    torusKnot.geometry.dispose()
-    torusKnot.geometry = newGeometry
+    plane.geometry.dispose()
+    plane.geometry = newGeometry
 }
 // responsiveness
 window.addEventListener('resize', () => {
@@ -75,8 +80,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // animation
 function animate() {
     requestAnimationFrame(animate)
-    torusKnot.rotation.x += 0.005
-    torusKnot.rotation.y += 0.01
+    plane.rotation.x += 0.005
+    plane.rotation.y += 0.01
     renderer.render(scene, camera)
 }
 // rendering the scene
