@@ -1,47 +1,91 @@
 import * as THREE from 'three'
-import WebGL from 'three/addons/capabilities/WebGL.js';
+import { GUI } from 'dat.gui'
 
-// Scene
-const scene = new THREE.Scene();
-scene.background = new THREE.Color('#242424')
-
-// Camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
-
-// Renderer
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-document.body.appendChild(renderer.domElement);
-
-// Creating a cube
-const geometry = new THREE.BoxGeometry(1, 1, 1);
+// Plane geometry
+// A rotating 2d rectangle in Three.js
+// GUI
+const gui = new GUI()
+// sizes
+let width = window.innerWidth
+let height = window.innerHeight
+// scene
+const scene = new THREE.Scene()
+scene.background = new THREE.Color(0x262626)
+// camera
+const camera = new THREE.PerspectiveCamera(30, width / height, 0.1, 100)
+camera.position.set(0, 0, 10)
+const camFolder = gui.addFolder('Camera')
+camFolder.add(camera.position, 'z').min(10).max(60).step(10)
+camFolder.open()
+// Light
+const ambientLight = new THREE.AmbientLight(0xffffff, 1)
+scene.add(ambientLight)
+const pointLight = new THREE.PointLight(0xffffff, 0.2)
+pointLight.position.x = 2
+pointLight.position.y = 3
+pointLight.position.z = 4
+scene.add(pointLight)
+// plane
+const geometry = new THREE.PlaneGeometry(1, 1)
 const material = new THREE.MeshBasicMaterial({
-    color: 0xd23d32,
+    color: 0xffffff,
     wireframe: true,
-});
-const cube = new THREE.Mesh(geometry, material);
-
-// add cube to scene
-scene.add(cube);
-
-// animate and render
+    side: THREE.DoubleSide
+})
+const materialFolder = gui.addFolder('Material')
+materialFolder.add(material, 'wireframe')
+materialFolder.open()
+const plane = new THREE.Mesh(geometry, material)
+scene.add(plane)
+// experimenting plane properties
+const planeProps = {
+    width: 1,
+    height: 1,
+    widthSegments: 1,
+    heightSegments: 1
+}
+const props = gui.addFolder('Properties')
+props
+    .add(planeProps, 'width', 1, 30)
+    .step(1)
+    .onChange(redraw)
+    .onFinishChange(() => console.dir(plane.geometry))
+props.add(planeProps, 'height', 1, 30).step(1).onChange(redraw)
+props.add(planeProps, 'widthSegments', 1, 30).step(1).onChange(redraw)
+props.add(planeProps, 'heightSegments', 1, 30).step(1).onChange(redraw)
+props.open()
+function redraw() {
+    let newGeometry = new THREE.PlaneGeometry(
+        planeProps.width,
+        planeProps.height,
+        planeProps.widthSegments,
+        planeProps.heightSegments
+    )
+    plane.geometry.dispose()
+    plane.geometry = newGeometry
+}
+// responsiveness
+window.addEventListener('resize', () => {
+    width = window.innerWidth
+    height = window.innerHeight
+    camera.aspect = width / height
+    camera.updateProjectionMatrix()
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.render(scene, camera)
+})
+// renderer
+const renderer = new THREE.WebGL1Renderer()
+renderer.setSize(width, height)
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+// animation
 function animate() {
-    requestAnimationFrame(animate);
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-    renderer.render(scene, camera);
+    requestAnimationFrame(animate)
+    plane.rotation.x += 0.005
+    plane.rotation.y += 0.01
+    renderer.render(scene, camera)
 }
-
-if (WebGL.isWebGLAvailable()) {
-
-    // Initiate function or other initializations here
-    animate();
-
-} else {
-
-    const warning = WebGL.getWebGLErrorMessage();
-    document.body.appendChild(warning);
-
-}
+// rendering the scene
+const container = document.querySelector('#threejs-container')
+container.append(renderer.domElement)
+renderer.render(scene, camera)
+animate()
