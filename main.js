@@ -1,47 +1,94 @@
 import * as THREE from 'three'
-import WebGL from 'three/addons/capabilities/WebGL.js';
+import { GUI } from 'dat.gui'
 
-// Scene
-const scene = new THREE.Scene();
-scene.background = new THREE.Color('#242424')
-
-// Camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
-
-// Renderer
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
+// Creating a checker-board using Textures
+// applying the texture to 2d plane geometry
+// GUI
+const gui = new GUI()
+// sizes
+let width = window.innerWidth
+let height = window.innerHeight
+// scene
+const scene = new THREE.Scene()
+scene.background = new THREE.Color(0x262626)
+// camera
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 100)
+camera.position.set(0, 0, 10)
+const camFolder = gui.addFolder('Camera')
+camFolder.add(camera.position, 'z').min(10).max(60).step(10)
+camFolder.open()
+// Light
+const ambientLight = new THREE.AmbientLight(0xffffff, 1)
+scene.add(ambientLight)
+// texture
+const planeSize = 10
+const loader = new THREE.TextureLoader()
+const texture = loader.load(' https://cloud-nfpbfxp6x-hack-clubbot.vercel.app/0height.png ')
+texture.wrapS = THREE.RepeatWrapping
+texture.wrapT = THREE.RepeatWrapping
+texture.magFilter = THREE.NearestFilter
+const repeats = planeSize / 2
+texture.repeat.set(repeats, repeats)
+class StringToNumberHelper {
+    constructor(obj, prop) {
+        this.obj = obj
+        this.prop = prop
+    }
+    get value() {
+        return this.obj[this.prop]
+    }
+    set value(v) {
+        this.obj[this.prop] = parseFloat(v)
+    }
+}
+const wrapModes = {
+    ClampToEdgeWrapping: THREE.ClampToEdgeWrapping,
+    RepeatWrapping: THREE.RepeatWrapping,
+    MirroredRepeatWrapping: THREE.MirroredRepeatWrapping
+}
+function updateTexture() {
+    texture.needsUpdate = true
+}
+gui
+    .add(new StringToNumberHelper(texture, 'wrapS'), 'value', wrapModes)
+    .name('texture.wrapS')
+    .onChange(updateTexture)
+gui
+    .add(new StringToNumberHelper(texture, 'wrapT'), 'value', wrapModes)
+    .name('texture.wrapT')
+    .onChange(updateTexture)
+gui.add(texture.repeat, 'x', 0, 5, 0.01).name('texture.repeat.x')
+gui.add(texture.repeat, 'y', 0, 5, 0.01).name('texture.repeat.y')
+// plane for board
+const geometry = new THREE.PlaneGeometry(planeSize, planeSize)
+const material = new THREE.MeshPhongMaterial({
+    map: texture,
+    side: THREE.DoubleSide
+})
+const board = new THREE.Mesh(geometry, material)
+board.position.set(0, 0, 0)
+scene.add(board)
+// responsiveness
+window.addEventListener('resize', () => {
+    width = window.innerWidth
+    height = window.innerHeight
+    camera.aspect = width / height
+    camera.updateProjectionMatrix()
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.render(scene, camera)
+})
+// renderer
+const renderer = new THREE.WebGL1Renderer()
+renderer.setSize(width, height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-document.body.appendChild(renderer.domElement);
-
-// Creating a cube
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({
-    color: 0xd23d32,
-    wireframe: true,
-});
-const cube = new THREE.Mesh(geometry, material);
-
-// add cube to scene
-scene.add(cube);
-
-// animate and render
+// animation
 function animate() {
-    requestAnimationFrame(animate);
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-    renderer.render(scene, camera);
+    requestAnimationFrame(animate)
+    renderer.render(scene, camera)
 }
-
-if (WebGL.isWebGLAvailable()) {
-
-    // Initiate function or other initializations here
-    animate();
-
-} else {
-
-    const warning = WebGL.getWebGLErrorMessage();
-    document.body.appendChild(warning);
-
-}
+// rendering the scene
+const container = document.querySelector('#threejs-container')
+container.append(renderer.domElement)
+renderer.render(scene, camera)
+console.log(scene.children)
+animate()
