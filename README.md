@@ -34,6 +34,17 @@ Chapters:-
   - Spotlight
   - Point Light
   - Hemisphere Light
+- Geometries
+  - Plane Geometry
+  - Circle Geometry
+  - Ring Geometry
+  - Box Geometry
+  - Sphere Geometry
+  - Cylinder Geometry
+  - Cone Geometry
+  - Torus Geometry
+  - TorusKnot Geometry
+  - Polyhedron Geometry
 
 ## Acknowledgements
 
