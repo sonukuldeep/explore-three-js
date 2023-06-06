@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { GUI } from 'dat.gui'
 
-// Cylinder geometry in Three.js
+// Cone geometry in Three.js
 // GUI
 const gui = new GUI()
 // sizes
@@ -16,8 +16,8 @@ camera.position.set(0, 0, 10)
 const camFolder = gui.addFolder('Camera')
 camFolder.add(camera.position, 'z').min(10).max(60).step(10)
 camFolder.open()
-// cylinder
-const geometry = new THREE.CylinderGeometry()
+// cone
+const geometry = new THREE.ConeGeometry()
 const material = new THREE.MeshBasicMaterial({
     color: 0xffffff,
     wireframe: true
@@ -25,11 +25,10 @@ const material = new THREE.MeshBasicMaterial({
 const materialFolder = gui.addFolder('Material')
 materialFolder.add(material, 'wireframe')
 materialFolder.open()
-const cylinder = new THREE.Mesh(geometry, material)
-scene.add(cylinder)
-const cylinderProps = {
-    radiusTop: 1,
-    radiusBottom: 1,
+const cone = new THREE.Mesh(geometry, material)
+scene.add(cone)
+const coneProps = {
+    radius: 1,
     height: 1,
     radialSegments: 8,
     heightSegments: 1,
@@ -39,31 +38,29 @@ const cylinderProps = {
 }
 const props = gui.addFolder('Properties')
 props
-    .add(cylinderProps, 'radiusTop', 1, 50)
+    .add(coneProps, 'radius', 1, 50)
     .step(1)
     .onChange(redraw)
-    .onFinishChange(() => console.dir(cylinder.geometry))
-props.add(cylinderProps, 'radiusBottom', 0, 50).onChange(redraw)
-props.add(cylinderProps, 'height', 0, 100).onChange(redraw)
-props.add(cylinderProps, 'radialSegments', 1, 50).step(1).onChange(redraw)
-props.add(cylinderProps, 'heightSegments', 1, 50).step(1).onChange(redraw)
-props.add(cylinderProps, 'openEnded').onChange(redraw)
-props.add(cylinderProps, 'thetaStart', 0, 2 * Math.PI).onChange(redraw)
-props.add(cylinderProps, 'thetaLength', 0, 2 * Math.PI).onChange(redraw)
+    .onFinishChange(() => console.dir(cone.geometry))
+props.add(coneProps, 'height', 0, 100).onChange(redraw)
+props.add(coneProps, 'radialSegments', 1, 50).step(1).onChange(redraw)
+props.add(coneProps, 'heightSegments', 1, 50).step(1).onChange(redraw)
+props.add(coneProps, 'openEnded').onChange(redraw)
+props.add(coneProps, 'thetaStart', 0, 2 * Math.PI).onChange(redraw)
+props.add(coneProps, 'thetaLength', 0, 2 * Math.PI).onChange(redraw)
 props.open()
 function redraw() {
-    let newGeometry = new THREE.CylinderGeometry(
-        cylinderProps.radiusTop,
-        cylinderProps.radiusBottom,
-        cylinderProps.height,
-        cylinderProps.radialSegments,
-        cylinderProps.heightSegments,
-        cylinderProps.openEnded,
-        cylinderProps.thetaStart,
-        cylinderProps.thetaLength
+    let newGeometry = new THREE.ConeGeometry(
+        coneProps.radius,
+        coneProps.height,
+        coneProps.radialSegments,
+        coneProps.heightSegments,
+        coneProps.openEnded,
+        coneProps.thetaStart,
+        coneProps.thetaLength
     )
-    cylinder.geometry.dispose()
-    cylinder.geometry = newGeometry
+    cone.geometry.dispose()
+    cone.geometry = newGeometry
 }
 // responsiveness
 window.addEventListener('resize', () => {
@@ -81,11 +78,11 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // animation
 function animate() {
     requestAnimationFrame(animate)
-    cylinder.rotation.x += 0.005
-    cylinder.rotation.y += 0.01
+    cone.rotation.x += 0.005
+    cone.rotation.y += 0.01
     renderer.render(scene, camera)
 }
-// rendecylinder the scene
+// rendecone the scene
 const container = document.querySelector('#threejs-container')
 container.append(renderer.domElement)
 renderer.render(scene, camera)
