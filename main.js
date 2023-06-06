@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import { GUI } from 'dat.gui'
 
-// Plane geometry
-// A rotating 2d rectangle in Three.js
+// Circle geometry
+// a 2d circle in Three.js
 // GUI
 const gui = new GUI()
 // sizes
@@ -25,8 +25,8 @@ pointLight.position.x = 2
 pointLight.position.y = 3
 pointLight.position.z = 4
 scene.add(pointLight)
-// plane
-const geometry = new THREE.PlaneGeometry(1, 1)
+// circle
+const geometry = new THREE.CircleGeometry()
 const material = new THREE.MeshBasicMaterial({
     color: 0xffffff,
     wireframe: true,
@@ -35,34 +35,33 @@ const material = new THREE.MeshBasicMaterial({
 const materialFolder = gui.addFolder('Material')
 materialFolder.add(material, 'wireframe')
 materialFolder.open()
-const plane = new THREE.Mesh(geometry, material)
-scene.add(plane)
-// experimenting plane properties
-const planeProps = {
-    width: 1,
-    height: 1,
-    widthSegments: 1,
-    heightSegments: 1
+const circle = new THREE.Mesh(geometry, material)
+scene.add(circle)
+const circleProps = {
+    radius: 1,
+    segments: 8,
+    thetaStart: 0,
+    thetaLength: 2 * Math.PI
 }
 const props = gui.addFolder('Properties')
 props
-    .add(planeProps, 'width', 1, 30)
+    .add(circleProps, 'radius', 1, 50)
     .step(1)
     .onChange(redraw)
-    .onFinishChange(() => console.dir(plane.geometry))
-props.add(planeProps, 'height', 1, 30).step(1).onChange(redraw)
-props.add(planeProps, 'widthSegments', 1, 30).step(1).onChange(redraw)
-props.add(planeProps, 'heightSegments', 1, 30).step(1).onChange(redraw)
+    .onFinishChange(() => console.dir(circle.geometry))
+props.add(circleProps, 'segments', 1, 50).step(1).onChange(redraw)
+props.add(circleProps, 'thetaStart', 0, 2 * Math.PI).onChange(redraw)
+props.add(circleProps, 'thetaLength', 0, 2 * Math.PI).onChange(redraw)
 props.open()
 function redraw() {
-    let newGeometry = new THREE.PlaneGeometry(
-        planeProps.width,
-        planeProps.height,
-        planeProps.widthSegments,
-        planeProps.heightSegments
+    let newGeometry = new THREE.CircleGeometry(
+        circleProps.radius,
+        circleProps.segments,
+        circleProps.thetaStart,
+        circleProps.thetaLength
     )
-    plane.geometry.dispose()
-    plane.geometry = newGeometry
+    circle.geometry.dispose()
+    circle.geometry = newGeometry
 }
 // responsiveness
 window.addEventListener('resize', () => {
@@ -80,8 +79,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // animation
 function animate() {
     requestAnimationFrame(animate)
-    plane.rotation.x += 0.005
-    plane.rotation.y += 0.01
+    circle.rotation.x += 0.005
+    circle.rotation.y += 0.01
     renderer.render(scene, camera)
 }
 // rendering the scene
