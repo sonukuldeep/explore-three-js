@@ -23,7 +23,7 @@ scene.add(ambientLight)
 // texture
 const planeSize = 10
 const loader = new THREE.TextureLoader()
-const texture = loader.load(' https://cloud-nfpbfxp6x-hack-clubbot.vercel.app/0height.png ')
+const texture = loader.load('/black-white-background-with-wax-melted-crayon-art_53876-176852.jpg')
 texture.wrapS = THREE.RepeatWrapping
 texture.wrapT = THREE.RepeatWrapping
 texture.magFilter = THREE.NearestFilter
