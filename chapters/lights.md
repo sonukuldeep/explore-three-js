@@ -53,19 +53,19 @@ light.shadow.camera.bottom = -50
 The first property, castShadow, tells Three.js that this light casts shadows. As casting shadows is an expensive operation, we need to define the area where shadows can appear. You can do it with the shadow.camera.near, shadow.camera.far, and shadow.camera.left, etc. properties. With the above properties, we create a box-like area where Three.js render shadows.
 
 ## Light types
-1. Ambient Light
+1. [Ambient Light](#ambient-light)
 It is the most basic light, which illuminates the whole scene equally.
 
-2. Directional Light
+2. [Directional Light](#directional-light)
 Directional light comes from a specific point and is emitted directly from far away to the target.
 
-3. Spotlight
+3. [Spotlight](#spot-light)
 It is another kind of light that comes from a specific direction in the shape of the cone.
 
-4. Point Light
+4. [Point Light](#point-light)
 The point light is a light source that emits light in all directions from a single point.
 
-5. Hemisphere Light
+5. [Hemisphere Light](#hemisphere-light)
 It is a special light for creating natural lighting. 
 
 ### Ambient light
