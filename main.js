@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import { GUI } from 'dat.gui'
 
-// Cone geometry in Three.js
+// Torus geometry
+// creating a torus, a donut like shape in Three.js
 // GUI
 const gui = new GUI()
 // sizes
@@ -16,8 +17,8 @@ camera.position.set(0, 0, 10)
 const camFolder = gui.addFolder('Camera')
 camFolder.add(camera.position, 'z').min(10).max(60).step(10)
 camFolder.open()
-// cone
-const geometry = new THREE.ConeGeometry()
+// torus
+const geometry = new THREE.TorusGeometry()
 const material = new THREE.MeshBasicMaterial({
     color: 0xffffff,
     wireframe: true
@@ -25,42 +26,36 @@ const material = new THREE.MeshBasicMaterial({
 const materialFolder = gui.addFolder('Material')
 materialFolder.add(material, 'wireframe')
 materialFolder.open()
-const cone = new THREE.Mesh(geometry, material)
-scene.add(cone)
-const coneProps = {
+const torus = new THREE.Mesh(geometry, material)
+scene.add(torus)
+const torusProps = {
     radius: 1,
-    height: 1,
+    tubeRadius: 0.5,
     radialSegments: 8,
-    heightSegments: 1,
-    openEnded: false,
-    thetaStart: 0,
-    thetaLength: 2 * Math.PI
+    tubularSegments: 6,
+    arc: 2 * Math.PI
 }
 const props = gui.addFolder('Properties')
 props
-    .add(coneProps, 'radius', 1, 50)
+    .add(torusProps, 'radius', 1, 50)
     .step(1)
     .onChange(redraw)
-    .onFinishChange(() => console.dir(cone.geometry))
-props.add(coneProps, 'height', 0, 100).onChange(redraw)
-props.add(coneProps, 'radialSegments', 1, 50).step(1).onChange(redraw)
-props.add(coneProps, 'heightSegments', 1, 50).step(1).onChange(redraw)
-props.add(coneProps, 'openEnded').onChange(redraw)
-props.add(coneProps, 'thetaStart', 0, 2 * Math.PI).onChange(redraw)
-props.add(coneProps, 'thetaLength', 0, 2 * Math.PI).onChange(redraw)
+    .onFinishChange(() => console.dir(torus.geometry))
+props.add(torusProps, 'tubeRadius', 0.1, 50).step(0.1).onChange(redraw)
+props.add(torusProps, 'radialSegments', 1, 50).step(1).onChange(redraw)
+props.add(torusProps, 'tubularSegments', 1, 50).step(1).onChange(redraw)
+props.add(torusProps, 'arc', 0, 2 * Math.PI).onChange(redraw)
 props.open()
 function redraw() {
-    let newGeometry = new THREE.ConeGeometry(
-        coneProps.radius,
-        coneProps.height,
-        coneProps.radialSegments,
-        coneProps.heightSegments,
-        coneProps.openEnded,
-        coneProps.thetaStart,
-        coneProps.thetaLength
+    let newGeometry = new THREE.TorusGeometry(
+        torusProps.radius,
+        torusProps.tubeRadius,
+        torusProps.radialSegments,
+        torusProps.tubularSegments,
+        torusProps.arc
     )
-    cone.geometry.dispose()
-    cone.geometry = newGeometry
+    torus.geometry.dispose()
+    torus.geometry = newGeometry
 }
 // responsiveness
 window.addEventListener('resize', () => {
@@ -78,11 +73,11 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // animation
 function animate() {
     requestAnimationFrame(animate)
-    cone.rotation.x += 0.005
-    cone.rotation.y += 0.01
+    torus.rotation.x += 0.005
+    torus.rotation.y += 0.01
     renderer.render(scene, camera)
 }
-// rendecone the scene
+// rendering the scene
 const container = document.querySelector('#threejs-container')
 container.append(renderer.domElement)
 renderer.render(scene, camera)
