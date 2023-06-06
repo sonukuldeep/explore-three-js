@@ -12,7 +12,7 @@ yarn add dat.gui
 ## Import 
 ```js
 import * as dat from 'dat.gui'
-import {GUI} from 'dat'
+import {GUI} from 'dat.gui'
 ```
 
 ## Usage
