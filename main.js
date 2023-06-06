@@ -1,8 +1,7 @@
 import * as THREE from 'three'
 import { GUI } from 'dat.gui'
 
-// Ring geometry
-// a simple 2d ring in Three.js
+// creating a sphere using Sphere geometry in Three.js
 // GUI
 const gui = new GUI()
 // sizes
@@ -18,56 +17,57 @@ const camFolder = gui.addFolder('Camera')
 camFolder.add(camera.position, 'z').min(10).max(60).step(10)
 camFolder.open()
 // Light
-const ambientLight = new THREE.AmbientLight(0xffffff, 1)
+const ambientLight = new THREE.AmbientLight(0x87ceeb, 1)
 scene.add(ambientLight)
 const pointLight = new THREE.PointLight(0xffffff, 0.2)
 pointLight.position.x = 2
 pointLight.position.y = 3
 pointLight.position.z = 4
 scene.add(pointLight)
-// ring
-const geometry = new THREE.RingGeometry()
-const material = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
-    wireframe: true,
-    side: THREE.DoubleSide
-})
+// sphere
+const geometry = new THREE.SphereGeometry()
+const material = new THREE.MeshStandardMaterial({ color: 0xffffff })
+material.metalness = 0.7
+material.roughness = 0.3
 const materialFolder = gui.addFolder('Material')
 materialFolder.add(material, 'wireframe')
 materialFolder.open()
-const ring = new THREE.Mesh(geometry, material)
-scene.add(ring)
-const ringProps = {
-    innerRadius: 1,
-    outerRadius: 5,
-    thetaSegments: 8,
-    phiSegments: 8,
+const sphere = new THREE.Mesh(geometry, material)
+scene.add(sphere)
+const sphereProps = {
+    radius: 1,
+    widthSegments: 8,
+    heightSegments: 6,
+    phiStart: 0,
+    phiLength: 2 * Math.PI,
     thetaStart: 0,
     thetaLength: 2 * Math.PI
 }
 const props = gui.addFolder('Properties')
 props
-    .add(ringProps, 'innerRadius', 1, 50)
+    .add(sphereProps, 'radius', 1, 50)
     .step(1)
     .onChange(redraw)
-    .onFinishChange(() => console.dir(ring.geometry))
-props.add(ringProps, 'outerRadius', 1, 50).step(1).onChange(redraw)
-props.add(ringProps, 'thetaSegments', 1, 50).step(1).onChange(redraw)
-props.add(ringProps, 'phiSegments', 1, 50).step(1).onChange(redraw)
-props.add(ringProps, 'thetaStart', 0, 2 * Math.PI).onChange(redraw)
-props.add(ringProps, 'thetaLength', 0, 2 * Math.PI).onChange(redraw)
+    .onFinishChange(() => console.dir(sphere.geometry))
+props.add(sphereProps, 'widthSegments', 1, 50).step(1).onChange(redraw)
+props.add(sphereProps, 'heightSegments', 1, 50).step(1).onChange(redraw)
+props.add(sphereProps, 'phiStart', 0, 2 * Math.PI).onChange(redraw)
+props.add(sphereProps, 'phiLength', 0, 2 * Math.PI).onChange(redraw)
+props.add(sphereProps, 'thetaStart', 0, 2 * Math.PI).onChange(redraw)
+props.add(sphereProps, 'thetaLength', 0, 2 * Math.PI).onChange(redraw)
 props.open()
 function redraw() {
-    let newGeometry = new THREE.RingGeometry(
-        ringProps.innerRadius,
-        ringProps.outerRadius,
-        ringProps.thetaSegments,
-        ringProps.phiSegments,
-        ringProps.thetaStart,
-        ringProps.thetaLength
+    let newGeometry = new THREE.SphereGeometry(
+        sphereProps.radius,
+        sphereProps.widthSegments,
+        sphereProps.heightSegments,
+        sphereProps.phiStart,
+        sphereProps.phiLength,
+        sphereProps.thetaStart,
+        sphereProps.thetaLength
     )
-    ring.geometry.dispose()
-    ring.geometry = newGeometry
+    sphere.geometry.dispose()
+    sphere.geometry = newGeometry
 }
 // responsiveness
 window.addEventListener('resize', () => {
@@ -85,11 +85,11 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // animation
 function animate() {
     requestAnimationFrame(animate)
-    ring.rotation.x += 0.005
-    ring.rotation.y += 0.01
+    sphere.rotation.x += 0.005
+    sphere.rotation.y += 0.01
     renderer.render(scene, camera)
 }
-// rendering the scene
+// rendesphere the scene
 const container = document.querySelector('#threejs-container')
 container.append(renderer.domElement)
 renderer.render(scene, camera)
