@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import { GUI } from 'dat.gui'
 
-// Circle geometry
-// a 2d circle in Three.js
+// Ring geometry
+// a simple 2d ring in Three.js
 // GUI
 const gui = new GUI()
 // sizes
@@ -25,8 +25,8 @@ pointLight.position.x = 2
 pointLight.position.y = 3
 pointLight.position.z = 4
 scene.add(pointLight)
-// circle
-const geometry = new THREE.CircleGeometry()
+// ring
+const geometry = new THREE.RingGeometry()
 const material = new THREE.MeshBasicMaterial({
     color: 0xffffff,
     wireframe: true,
@@ -35,33 +35,39 @@ const material = new THREE.MeshBasicMaterial({
 const materialFolder = gui.addFolder('Material')
 materialFolder.add(material, 'wireframe')
 materialFolder.open()
-const circle = new THREE.Mesh(geometry, material)
-scene.add(circle)
-const circleProps = {
-    radius: 1,
-    segments: 8,
+const ring = new THREE.Mesh(geometry, material)
+scene.add(ring)
+const ringProps = {
+    innerRadius: 1,
+    outerRadius: 5,
+    thetaSegments: 8,
+    phiSegments: 8,
     thetaStart: 0,
     thetaLength: 2 * Math.PI
 }
 const props = gui.addFolder('Properties')
 props
-    .add(circleProps, 'radius', 1, 50)
+    .add(ringProps, 'innerRadius', 1, 50)
     .step(1)
     .onChange(redraw)
-    .onFinishChange(() => console.dir(circle.geometry))
-props.add(circleProps, 'segments', 1, 50).step(1).onChange(redraw)
-props.add(circleProps, 'thetaStart', 0, 2 * Math.PI).onChange(redraw)
-props.add(circleProps, 'thetaLength', 0, 2 * Math.PI).onChange(redraw)
+    .onFinishChange(() => console.dir(ring.geometry))
+props.add(ringProps, 'outerRadius', 1, 50).step(1).onChange(redraw)
+props.add(ringProps, 'thetaSegments', 1, 50).step(1).onChange(redraw)
+props.add(ringProps, 'phiSegments', 1, 50).step(1).onChange(redraw)
+props.add(ringProps, 'thetaStart', 0, 2 * Math.PI).onChange(redraw)
+props.add(ringProps, 'thetaLength', 0, 2 * Math.PI).onChange(redraw)
 props.open()
 function redraw() {
-    let newGeometry = new THREE.CircleGeometry(
-        circleProps.radius,
-        circleProps.segments,
-        circleProps.thetaStart,
-        circleProps.thetaLength
+    let newGeometry = new THREE.RingGeometry(
+        ringProps.innerRadius,
+        ringProps.outerRadius,
+        ringProps.thetaSegments,
+        ringProps.phiSegments,
+        ringProps.thetaStart,
+        ringProps.thetaLength
     )
-    circle.geometry.dispose()
-    circle.geometry = newGeometry
+    ring.geometry.dispose()
+    ring.geometry = newGeometry
 }
 // responsiveness
 window.addEventListener('resize', () => {
@@ -79,8 +85,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // animation
 function animate() {
     requestAnimationFrame(animate)
-    circle.rotation.x += 0.005
-    circle.rotation.y += 0.01
+    ring.rotation.x += 0.005
+    ring.rotation.y += 0.01
     renderer.render(scene, camera)
 }
 // rendering the scene
