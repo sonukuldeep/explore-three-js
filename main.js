@@ -3,9 +3,9 @@ import { GUI } from 'dat.gui'
 
 // Using mesh normal material
 // each face has different color
-import { OrbitControls } from "https://threejs.org/examples/jsm/controls/OrbitControls.js"
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 // GUI
-const gui = new dat.GUI()
+const gui = new GUI()
 // sizes
 let width = window.innerWidth
 let height = window.innerHeight
