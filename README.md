@@ -15,7 +15,7 @@ Taking inspirations along the way from https://threejs.org/ and https://bruno-si
 
 ## Documentation source
 - https://threejs.org/
-- https://threejs.org/, https://www.tutorialspoint.com/threejs/index.htm
+- https://www.tutorialspoint.com/threejs/index.htm
 
 Chapters:-
 - The cube- three js 
@@ -84,4 +84,4 @@ Install this project with npm
 
 ## 🛠 Skills
 
-[![My Skills](https://skillicons.dev/icons?i=js,ts,html,css,tailwind,sass,nodejs,react,vue,flask,rust,python,php,solidity,mongodb,mysql,prisma,figma)](https://github.com/sonukuldeep)
+[![My Skills](https://skillicons.dev/icons?i=js,ts,html,css,tailwind,sass,nodejs,react,vue,flask,rust,python,php,solidity,mongodb,mysql,prisma,figma,threejs)](https://github.com/sonukuldeep)
