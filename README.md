@@ -38,7 +38,7 @@ Chapters:-
 ## Acknowledgements
 
  - Three js docs
- - 
+ - tutorialspoint.com
  - React three fiber docs
  - Opensource community
  - My brain
