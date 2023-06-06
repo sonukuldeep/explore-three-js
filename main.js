@@ -1,8 +1,7 @@
 import * as THREE from 'three'
 import { GUI } from 'dat.gui'
 
-// Torus geometry
-// creating a torus, a donut like shape in Three.js
+// Torus knot geometry in Three.js
 // GUI
 const gui = new GUI()
 // sizes
@@ -17,8 +16,8 @@ camera.position.set(0, 0, 10)
 const camFolder = gui.addFolder('Camera')
 camFolder.add(camera.position, 'z').min(10).max(60).step(10)
 camFolder.open()
-// torus
-const geometry = new THREE.TorusGeometry()
+// torusKnot
+const geometry = new THREE.TorusKnotGeometry()
 const material = new THREE.MeshBasicMaterial({
     color: 0xffffff,
     wireframe: true
@@ -26,41 +25,44 @@ const material = new THREE.MeshBasicMaterial({
 const materialFolder = gui.addFolder('Material')
 materialFolder.add(material, 'wireframe')
 materialFolder.open()
-const torus = new THREE.Mesh(geometry, material)
-scene.add(torus)
-const torusProps = {
+const torusKnot = new THREE.Mesh(geometry, material)
+scene.add(torusKnot)
+const torusKnotProps = {
     radius: 1,
     tubeRadius: 0.5,
-    radialSegments: 8,
-    tubularSegments: 6,
-    arc: 2 * Math.PI
+    radialSegments: 64,
+    tubularSegments: 8,
+    p: 2,
+    q: 3
 }
 const props = gui.addFolder('Properties')
 props
-    .add(torusProps, 'radius', 1, 50)
+    .add(torusKnotProps, 'radius', 1, 50)
     .step(1)
     .onChange(redraw)
-    .onFinishChange(() => console.dir(torus.geometry))
-props.add(torusProps, 'tubeRadius', 0.1, 50).step(0.1).onChange(redraw)
-props.add(torusProps, 'radialSegments', 1, 50).step(1).onChange(redraw)
-props.add(torusProps, 'tubularSegments', 1, 50).step(1).onChange(redraw)
-props.add(torusProps, 'arc', 0, 2 * Math.PI).onChange(redraw)
+    .onFinishChange(() => console.dir(torusKnot.geometry))
+props.add(torusKnotProps, 'tubeRadius', 0.1, 50).step(0.1).onChange(redraw)
+props.add(torusKnotProps, 'radialSegments', 1, 50).step(1).onChange(redraw)
+props.add(torusKnotProps, 'tubularSegments', 1, 50).step(1).onChange(redraw)
+props.add(torusKnotProps, 'p', 1, 20).step(1).onChange(redraw)
+props.add(torusKnotProps, 'q', 1, 20).step(1).onChange(redraw)
 props.open()
 function redraw() {
-    let newGeometry = new THREE.TorusGeometry(
-        torusProps.radius,
-        torusProps.tubeRadius,
-        torusProps.radialSegments,
-        torusProps.tubularSegments,
-        torusProps.arc
+    let newGeometry = new THREE.TorusKnotGeometry(
+        torusKnotProps.radius,
+        torusKnotProps.tubeRadius,
+        torusKnotProps.radialSegments,
+        torusKnotProps.tubularSegments,
+        torusKnotProps.p,
+        torusKnotProps.q
     )
-    torus.geometry.dispose()
-    torus.geometry = newGeometry
+    torusKnot.geometry.dispose()
+    torusKnot.geometry = newGeometry
 }
 // responsiveness
 window.addEventListener('resize', () => {
     width = window.innerWidth
-    height = window.innerHeight
+    height = window.innerHlet
     camera.aspect = width / height
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
@@ -73,8 +75,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // animation
 function animate() {
     requestAnimationFrame(animate)
-    torus.rotation.x += 0.005
-    torus.rotation.y += 0.01
+    torusKnot.rotation.x += 0.005
+    torusKnot.rotation.y += 0.01
     renderer.render(scene, camera)
 }
 // rendering the scene
