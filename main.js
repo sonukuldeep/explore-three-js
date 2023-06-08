@@ -25,12 +25,12 @@ const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100)
 camera.position.set(0, 0, 10)
 // textures
 const loader = new THREE.TextureLoader()
-const texture = loader.load('/football_diff_1k.jpg')
-const normalmap = loader.load('/football_nor_gl_1k_normal.png')
-// const heightmap = loader.load('/public/')
-const roughmap = loader.load('/football_1k_rough.png')
-// const ambientOcclusionmap = loader.load('https://cloud-nfpbfxp6x-hackclub-bot.vercel.app/4ambientocclusion.jpg')
-const metallicmap = loader.load('/football_arm_1k_metal.png')
+const texture = loader.load('/maps/texture.jpg')
+const normalmap = loader.load('/maps/normal_map.png')
+const heightmap = loader.load('/maps/height_map.png')
+const roughmap = loader.load('/maps/rough_map.png')
+const ambientOcclusionmap = loader.load('/maps/ao_map.png')
+const metallicmap = loader.load('/maps/metallic_map.png')
 // plane
 const planeGeometry = new THREE.PlaneGeometry(100, 100)
 const plane = new THREE.Mesh(
