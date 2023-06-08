@@ -45,6 +45,16 @@ Chapters:-
   - Torus Geometry
   - TorusKnot Geometry
   - Polyhedron Geometry
+- Material
+  - MeshBasicMateria
+  - MeshDepthMaterial
+  - MeshNormalMaterial
+  - MeshLambertMaterial
+  - MeshPhongMaterial
+  - MeshStandardMaterial
+  - MeshPhysicalMaterial
+  - Multiple Materials
+- Textures
 
 ## Acknowledgements
 
