@@ -2,7 +2,7 @@
 Often you need to add text to your scene. In this chapter, let's see how to add 2D and 3D text to our scene.
 Draw Text to Canvas and Use as a Texture
 
-This is the easiest way to add 2D text to your scene. you can create canvas using JavaScript andd add it to the dom.
+This is the easiest way to add 2D text to your scene. you can create canvas using JavaScript and add it to the dom.
 ```js
 const canvas = document.createElement('canvas')
 const context = canvas.getContext('2d')

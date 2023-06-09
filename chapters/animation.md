@@ -1,5 +1,5 @@
 ## Animation
-Animations give life to our websites, as you can see that most of the examples use animations.Let's see how to add basic animations to our Three.js web application.
+Animations give life to our websites, as you can see that most of the examples use animations. Let's see how to add basic animations to our Three.js web application.
 
 If you want to add animations to your Three.js scene, you'll need to render the scene multiple times. To do that, you should use the standard HTML5 requestAnimationFrame functionality.
 ```js
