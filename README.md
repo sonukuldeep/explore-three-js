@@ -57,6 +57,7 @@ Chapters:-
 - Textures
 - Animation
 - Text
+- 3d Models
 
 ## Acknowledgements
 

@@ -28,9 +28,9 @@ In this code, we use OBJLoader to load the model from a URL. Once the model is l
 ## MTL Model Loader
 
 OBJ and MTL are companion formats and often used together. The MTL file defines the materials used for the geometry in OBJ files. The MTL is also in a text-based format.
-
+```js
 <script type="text/javascript" src="../scripts/MTLLoader.js"></script>
-
+```
 We'll use MTLLoader and OBJLoader together in this code snippet.
 ```js
 const mtlLoader = new THREE.MTLLoader()
