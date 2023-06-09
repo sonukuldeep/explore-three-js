@@ -55,6 +55,8 @@ Chapters:-
   - MeshPhysicalMaterial
   - Multiple Materials
 - Textures
+- Animation
+- Text
 
 ## Acknowledgements
 
