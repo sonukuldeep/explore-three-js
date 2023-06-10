@@ -1,6 +1,6 @@
 ## Drawing lines
 
-Let's say you want to draw a line or a circle, not a wireframe Mesh. First we need to set up the renderer, scene and [camera](/chapters/camera.md).
+Let's say you want to draw a line or a circle, not a wireframe Mesh. First we need to set up the renderer, scene and [camera](/chapters/scene.md).
 
 Here is the code that we will use:
 ```js

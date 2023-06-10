@@ -19,6 +19,8 @@ import {GUI} from 'dat.gui'
 First, you should initialize the object itself. It creates a widget and displays it on the screen top rightcorner.
 ```js
 const gui = new dat.GUI()
+or
+const gui = new GUI()
 ```
 Then, you can add the parameter you want to control and the variable. For example, the following code is to control the y position of the cube.
 ```js
@@ -29,9 +31,9 @@ gui.add(cube.position, 'y')
 ...
 const gui = new dat.GUI()
 ...
-gui.add(material, 'wireframe')
 const cube = new THREE.Mesh(geometry, material)
 scene.add(cube)
+gui.add(material, 'wireframe')
 gui.add(cube.position, 'x')
 gui.add(cube.position, 'y')
 gui.add(cube.position, 'z')
