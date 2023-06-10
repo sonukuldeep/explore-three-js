@@ -70,3 +70,5 @@ cube.rotation.x += 0.01;
 cube.rotation.y += 0.01;
 ```
 This will be run every frame (normally 60 times per second), and give the cube a nice rotation animation. Basically, anything you want to move or change while the app is running has to go through the animate loop. You can of course call other functions from there, so that you don't end up with an animate function that's hundreds of lines.
+
+[More on animation](https://github.com/sonukuldeep/explore-three-js/blob/main/chapters/animation.md)
