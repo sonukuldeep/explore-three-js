@@ -40,7 +40,8 @@ You can also add another argument - recursive.
 scene.getObjectByName(name, recursive)
 ```
 If you set the recursive argument to true, Three.js will search through the complete tree of objects to find the thing with the specified name.
-Adding Fog to the scene
+
+## Adding Fog to the scene
 
 This property allows you to set the fog for the scene. The fog renders a haze that hides faraway objects.
 ```js
@@ -53,7 +54,8 @@ With the THREE.Fog object, the fog increases linearly. There is also a different
 scene.fog = new THREE.FogExp2(0xffffff, 0.01)
 ```
 This time, we don't specify near and far, but just the color (0xffffff) and the mist's density(0.01). It's best to experiment a bit with these properties to get the effect you want.
-Using the override material property
+
+## Using the override material property
 
 The overrideMaterial property forces all the objects in the scene to use the same material.
 ```js
@@ -61,7 +63,7 @@ scene.overrideMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff })
 ```
 Here, all the objects on the scene of the same material, i.e., MeshLambertMaterial.
 
-Note − THREE.Scene is a structure that is sometimes also called a Scenegraph. A scene graph is a structure that can hold all the necessary information of a graphical scene.In Three.js, this means that THREE.Scene contains all the objects, lights, and other objects needed for rendering.
+Note − THREE.Scene is a structure that is sometimes also called a Scenegraph. A scene graph is a structure that can hold all the necessary information of a graphical scene. In Three.js, this means that THREE.Scene contains all the objects, lights, and other objects needed for rendering.
 Scene_Graph
 Renderer
 
