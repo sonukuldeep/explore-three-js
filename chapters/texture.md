@@ -10,7 +10,7 @@ texture.load('/path/to/the/image')
 ```
 Then, set the map property of the material to this texture. That's it; you applied a texture to the plane geometry.
 
-Textures have settings for repeating, offsetting, and rotating a texture. By default, textures in three.js do not repeat. There are two properties, wrapS for horizontal wrapping and wrapT for vertical wrapping to set whether a texture repeats. And set the repeating mode to THREE.ReaptWrapping.
+Textures have settings for repeating, offsetting, and rotating a texture. By default, textures in three.js do not repeat. There are two properties, wrapS for horizontal wrapping and wrapT for vertical wrapping to set whether a texture repeats. And set the repeating mode to THREE.RepeatWrapping.
 ```js
 texture.wrapS = THREE.RepeatWrapping
 texture.wrapT = THREE.RepeatWrapping
@@ -20,7 +20,7 @@ In Three.js, you can choose what happens both when the texture is drawn larger t
 
 For setting the filter, when the texture is larger than its original size, you set texture.magFilter property to either THREE.NearestFilter or THREE.LinearFilter.
 - NearestFilter − This filter uses the color of the nearest texel that it can find.
-- LinearFilter − This filter is more advanced and uses the color values of the four neighboring texels to determine the correct color.
+- LinearFilter − This filter is more advanced and uses the color values of the four neighboring textures to determine the correct color.
 
 And, you can add how many times to repeat the texture.
 ```js
