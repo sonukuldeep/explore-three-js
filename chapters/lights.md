@@ -1,5 +1,5 @@
 ## Lights
-Lights make the objects visible, similarly, in Three.js THREE.Light lights up the scene and makes some things visible. Not all materials are affected by lighting. The MeshBasicMaterial and MeshNormalMaterial are self-illuminating, so they don't need lighting to be visible within a scene. However, most of the other materials do, the MeshLambertMaterial, MeshPhongMaterial, MeshStandardMaterial, MeshPhysicalMaterial, and MeshToonMaterial. We'll discuss more materials in further chapters. In this chapter, we'll focus on different types of lights in Three.js.
+Lights make the objects visible, similarly, in Three.js THREE.Light lights up the scene and makes some things visible. Not all materials are affected by lighting. The __MeshBasicMaterial__ and __MeshNormalMaterial__ are self-illuminating, so they don't need lighting to be visible within a scene. However, most of the other materials do, the MeshLambertMaterial, MeshPhongMaterial, MeshStandardMaterial, MeshPhysicalMaterial, and MeshToonMaterial. We'll discuss more materials in further chapters. In this chapter, we'll focus on different types of lights in Three.js.
 
 Every light has color and intensity properties.
 
@@ -69,7 +69,7 @@ The point light is a light source that emits light in all directions from a sing
 It is a special light for creating natural lighting. 
 
 ### Ambient light
-It is the most basic light, which illuminates the whole scene equally. Light is spread equally in all directions and distances, so it cannot cast shadows. Ambient light affects all lit objects in the scene equally, and it adds color to the object's material.
+It is the most basic light, which illuminates the whole scene equally. Light is spread equally in all directions and distances, so it __cannot cast shadows__. Ambient light affects all lit objects in the scene equally, and it __adds color__ to the object's material.
 ```js
 const light = THREE.AmbientLight(color, intensity)
 ```
