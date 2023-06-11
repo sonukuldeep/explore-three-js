@@ -143,7 +143,7 @@ const torus = new THREE.TorusGeometry(
 ```
 
 ### Torus knot geometry
-A torus knot is a special kind of knot that looks like a tube that winds around itself a couple of times.You can create a torus-knot using THREE.TorusKnotGeometry. It's pretty similar to TorusGeometry with additional properties, the p and q.
+A torus knot is a special kind of knot that looks like a tube that winds around itself a couple of times. You can create a torus-knot using THREE.TorusKnotGeometry. It's pretty similar to TorusGeometry with additional properties, the p and q.
 - p − It defines how many times the geometry winds around its axis of rotational symmetry. Default is 2.
 - q − It defines how many times the geometry winds around the interior of the torus. This defaults to 3.
 ```js
