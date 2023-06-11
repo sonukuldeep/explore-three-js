@@ -50,7 +50,7 @@ It loads the materials first. Then we set the materials of the OBJ file to load 
 
 ## GLTF Model Loader
 
-A glTF file may contain one or more scenes, meshes, materials, textures, skins, skeletons, morph targets, animations, lights, and cameras. It is the recommended format by official Three.js.Both.GLB and .GLTF versions of the format are well-supported by Three.js. Because glTF focuses on runtime asset delivery, it is compact to transmit and fast to load.
+A glTF file may contain one or more scenes, meshes, materials, textures, skins, skeletons, morph targets, animations, lights, and cameras. It is the recommended format by official Three.js. Both .GLB and .GLTF versions of the format are well-supported by Three.js. Because glTF focuses on runtime asset delivery, it is compact to transmit and fast to load.
 ```js
 <script src="../scripts/GLTFLoader.js"></script>
 ```
