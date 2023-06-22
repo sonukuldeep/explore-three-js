@@ -67,6 +67,10 @@ Chapters:-
  - Opensource community
  - My brain
 
+## Standalone Install
+```js
+npm install --save three
+```
 
 ## Installation
 
